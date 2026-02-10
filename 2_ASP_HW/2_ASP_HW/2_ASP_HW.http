@@ -1,0 +1,42 @@
+@_2_ASP_HW_HostAddress = http://localhost:5285
+
+
+POST {{_2_ASP_HW_HostAddress}}/api/book
+Content-Type: application/json
+
+{
+  "title": "Clean Code",
+  "author": "Robert C. Martin",
+  "description": "Good programming book",
+  "year": 2008
+
+}
+
+POST {{_2_ASP_HW_HostAddress}}/api/book
+Content-Type: application/json
+{
+  "title": "Mein Kampf",
+  "author": "Adolf Hitler",
+  "description": "Story about Adolf Hitler",
+  "year": 1925"
+}
+
+GET {{_2_ASP_HW_HostAddress}}/api/book
+Accept: application/json
+
+GET {{_2_ASP_HW_HostAddress}}/api/book/1
+Accept: application/json
+
+PUT {{_2_ASP_HW_HostAddress}}/api/book
+Content-Type: application/json
+
+{
+  "id": 1,
+  "title": "Clean Code (Updated)",
+  "author": "Robert C. Martin",
+  "description": "Updated description",
+  "price": 550
+}
+
+DELETE {{_2_ASP_HW_HostAddress}}/api/book/1
+Accept: application/json

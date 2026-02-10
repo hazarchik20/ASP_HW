@@ -1,0 +1,6 @@
+C:\Users\PC\source\repos\Hazar_ASP_1hw\Hazar_ASP_1hw\obj\Debug\net8.0\Hazar_ASP_1hw.csproj.AssemblyReference.cache
+C:\Users\PC\source\repos\Hazar_ASP_1hw\Hazar_ASP_1hw\obj\Debug\net8.0\Hazar_ASP_1hw.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\PC\source\repos\Hazar_ASP_1hw\Hazar_ASP_1hw\obj\Debug\net8.0\Hazar_ASP_1hw.AssemblyInfoInputs.cache
+C:\Users\PC\source\repos\Hazar_ASP_1hw\Hazar_ASP_1hw\obj\Debug\net8.0\Hazar_ASP_1hw.AssemblyInfo.cs
+C:\Users\PC\source\repos\Hazar_ASP_1hw\Hazar_ASP_1hw\obj\Debug\net8.0\Hazar_ASP_1hw.csproj.CoreCompileInputs.cache
+C:\Users\PC\source\repos\Hazar_ASP_1hw\Hazar_ASP_1hw\obj\Debug\net8.0\Hazar_ASP_1hw.MvcApplicationPartsAssemblyInfo.cache

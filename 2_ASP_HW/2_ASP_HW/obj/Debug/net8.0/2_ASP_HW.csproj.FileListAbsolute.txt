@@ -1,0 +1,7 @@
+C:\Users\1\source\repos\For_ASP_HW\2_ASP_HW\2_ASP_HW\obj\Debug\net8.0\2_ASP_HW.csproj.AssemblyReference.cache
+C:\Users\1\source\repos\For_ASP_HW\2_ASP_HW\2_ASP_HW\obj\Debug\net8.0\rpswa.dswa.cache.json
+C:\Users\1\source\repos\For_ASP_HW\2_ASP_HW\2_ASP_HW\obj\Debug\net8.0\2_ASP_HW.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\1\source\repos\For_ASP_HW\2_ASP_HW\2_ASP_HW\obj\Debug\net8.0\2_ASP_HW.AssemblyInfoInputs.cache
+C:\Users\1\source\repos\For_ASP_HW\2_ASP_HW\2_ASP_HW\obj\Debug\net8.0\2_ASP_HW.AssemblyInfo.cs
+C:\Users\1\source\repos\For_ASP_HW\2_ASP_HW\2_ASP_HW\obj\Debug\net8.0\2_ASP_HW.csproj.CoreCompileInputs.cache
+C:\Users\1\source\repos\For_ASP_HW\2_ASP_HW\2_ASP_HW\obj\Debug\net8.0\2_ASP_HW.MvcApplicationPartsAssemblyInfo.cache

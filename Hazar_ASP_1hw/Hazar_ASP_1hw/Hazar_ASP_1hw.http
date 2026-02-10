@@ -1,0 +1,61 @@
+@Hazar_ASP_1hw_HostAddress = http://localhost:5206
+
+
+
+###
+
+POST {{Hazar_ASP_1hw_HostAddress}}/api/customers
+Content-Type: application/json
+
+{
+  "name": "Ivan",
+  "yaer": 2001
+}
+
+POST {{Hazar_ASP_1hw_HostAddress}}/api/customers
+Content-Type: application/json
+
+{
+  "name": "Taras",
+  "yaer": 1990
+}
+
+POST {{Hazar_ASP_1hw_HostAddress}}/api/customers
+Content-Type: application/json
+
+{
+  "name": "Pavlo",
+  "yaer": 2010
+}
+POST {{Hazar_ASP_1hw_HostAddress}}/api/customers
+Content-Type: application/json
+
+{
+  "name": "Pavlo",
+  "yaer": 2001
+}
+
+
+GET {{Hazar_ASP_1hw_HostAddress}}/api/customers
+Accept: application/json
+
+GET {{Hazar_ASP_1hw_HostAddress}}/api/customers/1
+Accept: application/json
+
+GET {{Hazar_ASP_1hw_HostAddress}}/api/customers?year=2000
+Accept: application/json
+
+DELETE {{Hazar_ASP_1hw_HostAddress}}/api/customers/3
+
+PUT {{Hazar_ASP_1hw_HostAddress}}/api/customers
+Content-Type: application/json
+{
+  "id": 1,
+  "name": "Ivan Updated",
+  "birthYear": 1999
+}
+
+PATCH {{Hazar_ASP_1hw_HostAddress}}/api/customers/1?year=2003
+
+GET {{Hazar_ASP_1hw_HostAddress}}/api/customers/unique-names
+Accept: application/json
