@@ -1,0 +1,63 @@
+﻿@page "/CryptoGrid"
+@using DLL.Models
+@using DLL.Repository
+@inject CryptoRepo CryptoRepository
+@rendermode InteractiveServer
+
+<div>
+    <div class="crypto-header">
+        <div>#</div>
+        <div>Ім'я</div>
+        <div>Ціна</div>
+        <div>% за 1 год</div>
+        <div>% за 24 год</div>
+        <div>% за 7 дн</div>
+        <div>Ринкова капіталізація</div>
+        <div>Циркулюючий запас</div>
+    </div>
+    @if (cryptos == null)
+    {
+        <p>Loading...</p>
+    }
+    else
+    {
+        @foreach (var crypto in cryptos)
+        {
+            <CryptoItem crypto="crypto" />
+        }
+    }
+</div>
+
+@code {
+
+    private IEnumerable<Crypto> cryptos;
+
+    protected override async Task OnInitializedAsync()
+    {
+        cryptos = await CryptoRepository.GetAllCryptosAsync();
+        if (!cryptos.Any())
+        {
+            var list = new List<Crypto>()
+            {
+                new Crypto{Symbol="BTC",Name="Bitcoin",Price=65000,Capitalization=1200000000000,TotalQuantity=19.6M,UnitsOfMeasurementQuantity='M',PercentPer1Hour=0.3f,PercentPer24Hour=1.2f,PercentPer7Day=5.1f,IsFavorite=true},
+                new Crypto{Symbol="ETH",Name="Ethereum",Price=3500,Capitalization=420000000000,TotalQuantity=120,UnitsOfMeasurementQuantity='M',PercentPer1Hour=0.4f,PercentPer24Hour=2.1f,PercentPer7Day=6.5f,IsFavorite=false},
+                new Crypto{Symbol="BNB",Name="Binance Coin",Price=420,Capitalization=65000000000,TotalQuantity=155,UnitsOfMeasurementQuantity='M',PercentPer1Hour=0.1f,PercentPer24Hour=0.8f,PercentPer7Day=3.2f,IsFavorite=false},
+                new Crypto{Symbol="SOL",Name="Solana",Price=140,Capitalization=60000000000,TotalQuantity=440,UnitsOfMeasurementQuantity='M',PercentPer1Hour=0.7f,PercentPer24Hour=4.5f,PercentPer7Day=10.1f,IsFavorite=false},
+                new Crypto{Symbol="XRP",Name="Ripple",Price=0.62m,Capitalization=34000000000,TotalQuantity=55,UnitsOfMeasurementQuantity='B',PercentPer1Hour=0.2f,PercentPer24Hour=1.5f,PercentPer7Day=2.9f,IsFavorite=false},
+                new Crypto{Symbol="ADA",Name="Cardano",Price=0.48m,Capitalization=17000000000,TotalQuantity=35,UnitsOfMeasurementQuantity='B',PercentPer1Hour=-0.1f,PercentPer24Hour=0.9f,PercentPer7Day=1.2f,IsFavorite=false},
+                new Crypto{Symbol="DOGE",Name="Dogecoin",Price=0.14m,Capitalization=20000000000,TotalQuantity=144,UnitsOfMeasurementQuantity='B',PercentPer1Hour=0.5f,PercentPer24Hour=3.4f,PercentPer7Day=7.8f,IsFavorite=true},
+                new Crypto{Symbol="DOT",Name="Polkadot",Price=7.2m,Capitalization=9000000000,TotalQuantity=1.4M,UnitsOfMeasurementQuantity='B',PercentPer1Hour=0.3f,PercentPer24Hour=2.0f,PercentPer7Day=4.4f,IsFavorite=false},
+                new Crypto{Symbol="MATIC",Name="Polygon",Price=0.95m,Capitalization=10000000000,TotalQuantity=9.8M,UnitsOfMeasurementQuantity='B',PercentPer1Hour=0.2f,PercentPer24Hour=1.7f,PercentPer7Day=5.0f,IsFavorite=false},
+                new Crypto{Symbol="LTC",Name="Litecoin",Price=82,Capitalization=6000000000,TotalQuantity=74,UnitsOfMeasurementQuantity='M',PercentPer1Hour=0.1f,PercentPer24Hour=0.6f,PercentPer7Day=2.3f,IsFavorite=false}
+            };
+
+            foreach (var crypto in list)
+            {
+                await CryptoRepository.AddCryptoAsync(crypto);
+            }
+
+            cryptos = await CryptoRepository.GetAllCryptosAsync();
+        }
+    }
+
+}

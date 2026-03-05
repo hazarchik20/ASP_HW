@@ -1,0 +1,49 @@
+﻿@using DLL.Models
+@rendermode InteractiveServer
+
+<div class="crypto-card">
+    <div class="col favorite">
+        <button class="star " @onclick="HandleFavoryte"> @(crypto.IsFavorite == true ? "⭐" : "☆")</button>
+    </div>
+
+    <div class="col">@crypto.Id</div>
+
+    <div class="col main-info">
+        <div class="crypto-name">@crypto.Name</div>
+        <div class="crypto-symbol">@crypto.Symbol</div>
+    </div>
+    <button class="col buy-button">Купити</button>
+    <div class="col price positive">
+        @crypto.Price
+    </div>
+
+    <div class="col percent  @(crypto.PercentPer1Hour >= 0 ? "positive" : "negative")">
+        @crypto.PercentPer1Hour
+    </div>
+
+    <div class="col percent @(crypto.PercentPer24Hour >= 0 ? "positive" : "negative")">
+        @crypto.PercentPer24Hour
+    </div>
+
+    <div class="col percent @(crypto.PercentPer7Day>= 0 ? "positive" : "negative")">
+        @crypto.PercentPer7Day
+    </div>
+
+    <div class="col capitalization">
+        @crypto.Capitalization
+    </div>
+
+    <div class="col quantity">
+        @crypto.TotalQuantity@crypto.UnitsOfMeasurementQuantity @crypto.Symbol
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public Crypto crypto { get; set; }
+    public void HandleFavoryte()
+    {
+        crypto.IsFavorite = !crypto.IsFavorite;
+    }
+}
+
