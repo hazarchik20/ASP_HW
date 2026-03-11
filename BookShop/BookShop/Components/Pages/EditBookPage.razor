@@ -1,0 +1,54 @@
+﻿@page "/book/edit/{id}"
+@using BookShop.FakeStorage
+@using BookShop.FakeStorage.Models
+@inject FakeBookStorage BookService
+@inject NavigationManager NavigationManager
+
+
+<h3>Edit Book</h3>
+
+@if (Book != null)
+{
+    <div class="mb-3">
+        <label>Image Url</label>
+        <input class="form-control" @bind="Book.ImageUrl" />
+    </div>
+
+    <div class="mb-3">
+        <label>Title</label>
+        <input class="form-control" @bind="Book.Title" />
+    </div>
+
+    <div class="mb-3">
+        <label>Author</label>
+        <input class="form-control" @bind="Book.Author" />
+    </div>
+
+    <div class="mb-3">
+        <label>Price</label>
+        <input type="number" class="form-control" @bind="Book.Price" />
+    </div>
+
+    <button class="btn btn-primary" @onclick="UpdateBook">
+        Save
+    </button>
+}
+
+@code {
+
+   
+
+    [Parameter]
+    public Book Book { get; set; }
+    [Parameter]
+    public string id { get; set; }
+
+    private void UpdateBook()
+    {
+       
+        Console.WriteLine($"Updated: {Book.Title} - {Book.Price}");
+
+        BookService.UpdateBook(Convert.ToInt32(id),Book);
+        NavigationManager.NavigateTo("/books");
+    }
+}

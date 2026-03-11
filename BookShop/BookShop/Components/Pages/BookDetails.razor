@@ -1,0 +1,45 @@
+﻿@page "/book/{id:int}"
+@using BookShop.FakeStorage
+@using BookShop.FakeStorage.Models
+@inject NavigationManager NavigationManager
+@inject FakeBookStorage fakeStorage
+@inject IJSRuntime JS
+@rendermode InteractiveServer
+
+<tr>
+
+    <td>
+        <img src="@book.ImageUrl" width="80" />
+    </td>
+    <td>@book.Author</td>
+    <td>@book.Title</td>
+    <td>@book.Price</td>
+
+    <td>
+        <a href="/book/edit/@id">Edit</a>
+    </td>
+
+    <button @onclick="HandleClick">Delete</button>
+
+</tr>
+
+@code {
+    [Parameter]
+    public string id { get; set; }
+
+    private Book book;
+   
+    override protected void OnInitialized()
+    {
+        book = fakeStorage.GetBookById(Convert.ToInt32(id));
+    }
+    public async void HandleClick()
+    {
+        bool confirmed = await JS.InvokeAsync<bool>("confirm", "Ви впевнені що хочете видалити елемент?");
+        if (!confirmed)
+            return;
+
+        fakeStorage.RemoveBook(book.Title);
+        NavigationManager.NavigateTo("/books");
+    }
+}

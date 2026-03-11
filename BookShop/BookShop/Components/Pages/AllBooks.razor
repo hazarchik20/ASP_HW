@@ -1,0 +1,55 @@
+﻿@page "/books"
+@using BookShop.FakeStorage
+@using BookShop.FakeStorage.Models
+@inject FakeBookStorage fakeStorage
+@inject NavigationManager Navigation
+
+<h3>Books</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Img</th>
+            <th>Title</th>
+            <th>Link</th>
+
+        </tr>
+    </thead>
+
+    <tbody>
+        @for(int i=0; i<books.Count; i++)
+        {
+            <tr>
+                <td>
+                    <img @onmousedown="()=>{HandleClick(i);}" src="@books[i].ImageUrl" width="80" />
+                </td>
+                <td>@books[i].Title</td>
+                <td>
+                    <a href="/book/@i">Details</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3">
+                <button class="btn btn-primary" @onclick="()=>{offset+=limit;books = fakeStorage.GetBooks(limit,offset);}">Load more</button>
+            </td>
+        </tr>
+    </tfoot>
+</table>
+
+@code {
+    int limit = 2;
+    int offset = 0;
+    private List<Book> books;
+
+    protected override void OnInitialized()
+    {
+        books = fakeStorage.GetBooks(limit,offset);
+    }
+    public void HandleClick(int id)
+    {
+        Navigation.NavigateTo("/book/{id}");
+    }
+}
