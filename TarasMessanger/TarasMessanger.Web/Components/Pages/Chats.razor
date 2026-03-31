@@ -1,0 +1,49 @@
+﻿@page "/chats/{UserId:guid}"
+@using TarasMessanger.Web.Services
+@using TarasMessenger.Core.Models
+@inject ChatService ChatService
+@inject MessageService MessageService
+@inject NavigationManager Nav
+
+<h3>Chats</h3>
+
+@if (chats == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <div class="chat-list">
+        @foreach (var chat in chats)
+        {
+            <div class="chat-item" @onclick="() => OpenChat(chat.Id)">
+                <div>
+                    <b>@chat.Name</b>
+                    <p>@GetLastMessage(chat.Id)</p>
+                </div>
+            </div>
+        }
+    </div>
+}
+
+@code {
+    [Parameter] public Guid UserId { get; set; }
+
+    private List<Chat> chats;
+
+    protected override async Task OnInitializedAsync()
+    {
+        chats = await ChatService.GetUserChats(UserId);
+    }
+
+    private string GetLastMessage(Guid chatId)
+    {
+        var msg = MessageService.GetMessages(chatId, 1, 0).Result.FirstOrDefault();
+        return msg?.Text ?? "No messages";
+    }
+
+    void OpenChat(Guid chatId)
+    {
+        Nav.NavigateTo("/chat/" + chatId);
+    }
+}

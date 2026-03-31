@@ -1,0 +1,47 @@
+﻿@page "/profile/{UserId:guid}"
+@using TarasMessanger.Web.Services
+@using TarasMessenger.Core.Models
+@inject UserService UserService
+@inject NavigationManager Nav
+
+<h3>Profile</h3>
+
+@if (user == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <div class="profile-container">
+        <div class="profile-header">
+            <div>
+                <h2>@user.Nickname</h2>
+                <p>@user.Email</p>
+                <small>Joined: @user.CreatedAt.ToShortDateString()</small>
+            </div>
+
+            <button class="chat-btn" @onclick="GoToChats">💬 Chats</button>
+        </div>
+
+        <div class="posts-placeholder">
+            <h4>Posts (soon)</h4>
+            <div class="empty-posts">No posts yet</div>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter] public Guid UserId { get; set; }
+
+    private User user;
+
+    protected override async Task OnInitializedAsync()
+    {
+        user = await UserService.GetUser(UserId);
+    }
+
+    void GoToChats()
+    {
+        Nav.NavigateTo("/chats/" + UserId);
+    }
+}

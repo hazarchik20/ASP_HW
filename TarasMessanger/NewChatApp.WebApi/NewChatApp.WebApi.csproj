@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.4"/>
+        <PackageReference Include="Scrutor" Version="7.0.0" />
+        <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="10.1.5" />
+        <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="10.1.5" />
+        <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="10.1.5" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\NewChatApp.Application\NewChatApp.Application.csproj" />
+      <ProjectReference Include="..\NewChatApp.Core\NewChatApp.Core.csproj" />
+      <ProjectReference Include="..\NewChatApp.Storage\NewChatApp.Storage.csproj" />
+    </ItemGroup>
+
+</Project>

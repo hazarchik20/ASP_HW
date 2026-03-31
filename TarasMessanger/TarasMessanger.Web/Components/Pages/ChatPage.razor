@@ -1,0 +1,88 @@
+﻿@page "/chat/{ChatId:guid}"
+@using Microsoft.AspNetCore.SignalR.Client
+@using TarasMessanger.Web.Services
+@using TarasMessenger.Core.Models.Messages
+@inject MessageService MessageService
+@inject NavigationManager Nav
+
+<h3>Chat</h3>
+
+<div class="chat-container">
+    <div class="messages">
+        @foreach (var message in messages)
+        {
+            <div class="message">
+                <b>@message.User?.Nickname</b>
+                <p>@message.Text</p>
+
+                @if (message.Attachments.Any())
+                {
+                    <div class="attachments">
+                        @foreach (var file in message.Attachments)
+                        {
+                            <a href="@file.FilePath" target="_blank">@file.FileName</a>
+                        }
+                    </div>
+                }
+            </div>
+        }
+    </div>
+
+    <div class="input-area">
+        <input @bind="newMessage" placeholder="Type message..." />
+        <button @onclick="SendMessage">Send</button>
+    </div>
+</div>
+
+@code {
+    [Parameter] public Guid ChatId { get; set; }
+
+    private List<MessageBase> messages = new();
+    private string newMessage;
+
+    protected override async Task OnInitializedAsync()
+    {
+        messages = await MessageService.GetMessages(ChatId, 50, 0);
+        messages.Reverse();
+
+        hubConnection = new HubConnectionBuilder()
+            .WithUrl(Nav.ToAbsoluteUri("/chatHub"))
+            .WithAutomaticReconnect()
+            .Build();
+
+        hubConnection.On<MessageDto>("ReceiveMessage", (message) =>
+        {
+            messages.Add(new MessageBase
+            {
+                Text = message.Text,
+                SendAt = message.SendAt,
+                UserId = message.UserId
+            });
+
+            InvokeAsync(StateHasChanged);
+        });
+
+        await hubConnection.StartAsync();
+        await hubConnection.SendAsync("JoinChat", ChatId);
+    }
+
+    async Task SendMessage()
+    {
+        if (string.IsNullOrWhiteSpace(newMessage)) return;
+
+        var dto = new MessageDto
+        {
+            ChatId = ChatId,
+            UserId = Guid.Empty, // TODO: current user
+            Text = newMessage,
+            SendAt = DateTime.UtcNow
+        };
+
+        await hubConnection.SendAsync("SendMessage", dto);
+
+        newMessage = "";
+    }
+    private HubConnection hubConnection;
+
+
+}
